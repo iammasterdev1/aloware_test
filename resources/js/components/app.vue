@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <main>
 
         <header-component />
+        <Article-component />
 
-    </div>
+    </main>
 </template>
 <script>
 
@@ -14,6 +15,10 @@ export default {
 };
 </script>
 <style>
+main{
+    margin: 0 auto;
+    max-width: 970px;
+}
 * {
     margin: 0;
     padding: 0;

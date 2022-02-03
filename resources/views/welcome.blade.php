@@ -10,10 +10,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #fff">
 <div id="app">
 
-    <app />
+    <app :id="$id" />
 
 </div>
 </body>

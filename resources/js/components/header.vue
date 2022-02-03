@@ -39,8 +39,6 @@ export default {
 
 <style scoped>
     .header_main {
-        max-width: 970px;
-        margin: 0 auto;
         padding: 25px 15px;
     }
     .logo_box img {
