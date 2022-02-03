@@ -2,13 +2,14 @@
     <main>
 
         <header-component />
-        <Article-component />
+        <Article-component :article="article" />
 
     </main>
 </template>
 <script>
 
 export default {
+    props: ['article'] ,
     data() {
 
     }

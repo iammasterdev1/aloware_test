@@ -13,7 +13,7 @@
 <body style="background-color: #fff">
 <div id="app">
 
-    <app :id="$id" />
+    <app :article="{{ \App\Http\Controllers\article\articleController::getArticleDetails($id) }}"></app>
 
 </div>
 </body>
