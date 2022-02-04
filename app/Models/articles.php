@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class articles extends Model
 {
     use HasFactory;
@@ -13,6 +12,13 @@ class articles extends Model
         return $this->belongsTo(writers::class , 'writer' , 'id');
     }
 
+    public function comments (){
+        return $this->hasMany(
+            Comments::class ,
+            'article_id' ,
+            'id'
+        );
+    }
     public function tags (){
         return $this->belongsToMany(
             tags::class ,
@@ -23,5 +29,7 @@ class articles extends Model
             'id'
         );
     }
+
+
 
 }

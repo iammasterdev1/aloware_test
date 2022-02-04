@@ -41,8 +41,10 @@
         <section class="comments">
             <h6 class="comments_title">Comments</h6>
 
-            <comment :comment_text="`This is Good`" />
-
+            <new_comment />
+            <span v-for="comment in comments">
+                <comment :info="comment" :data="comments_data" />
+            </span>
         </section>
 
     </div>
@@ -54,9 +56,51 @@ export default {
     props: ['article'] ,
     data(){
         return {
-            comment_active: false,
-            reply_to: null
+            comments : {} ,
+            comments_data: {}
         }
+    },
+    created() {
+        // Checking comments
+        let data = this
+        data.article.comments.forEach(function(value, index){
+            if(value.reply_to == null) {
+                data.comments[value.id] = value
+            }else{
+                let order
+                if(data.comments[value.reply_to]){
+                    order = 2
+                }else{
+                    order = 3
+                }
+
+
+                if(order === 2) {
+                    if (!data.comments_data[value.reply_to]) data.comments_data[value.reply_to] = []
+                    data.comments_data[value.reply_to].push({
+                        id: value.id,
+                        reply_to: value.reply_to,
+                        comment_text: value.comment_text,
+                        comment_author: value.comment_author,
+                        num: order
+                    })
+                }
+
+                else if (order === 3){
+                    if (!data.comments_data[value.reply_to]) data.comments_data[value.reply_to] = []
+                    data.comments_data[value.reply_to].push({
+                        reply_to: value.reply_to ,
+                        id: value.id ,
+                        comment_text: value.comment_text ,
+                        comment_author: value.comment_author ,
+                        num: order ,
+                    })
+                }
+            }
+        })
+
+        console.log(data.comments_data)
+
     }
 }
 </script>
@@ -129,7 +173,7 @@ export default {
     border-radius: 5px;
 }
 .comments {
-    margin: 100px auto;
+    margin: 30px auto;
     max-width: 750px;
 
 }
@@ -139,5 +183,4 @@ export default {
     font-weight: 700;
     margin-bottom: 1rem;
 }
-
 </style>
