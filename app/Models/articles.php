@@ -17,7 +17,7 @@ class articles extends Model
             Comments::class ,
             'article_id' ,
             'id'
-        );
+        )->where('approved' , 1);
     }
     public function tags (){
         return $this->belongsToMany(

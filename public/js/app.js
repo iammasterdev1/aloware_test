@@ -5467,7 +5467,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "comment",
-  props: ['info', 'data'],
+  props: ['article_id', 'info', 'data'],
   data: function data() {
     return {
       replyable: true,
@@ -5556,12 +5556,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "new_comment",
-  props: ['reply_to'],
+  props: ['reply_to', 'article'],
   data: function data() {
     return {
       fullname: null,
       text: null
     };
+  },
+  methods: {
+    submit: function submit() {
+      var data = this;
+
+      if (data.fullname === null) {
+        alert('enter your full name');
+      } else if (data.text === null) {
+        alert('enter your comment');
+      } else {
+        axios.post('/comments/new', {
+          'name': data.fullname,
+          'comment': data.text,
+          'reply_to': data.reply_to,
+          'article_id': data.article
+        }).then(function (response) {
+          if (response.status === 200) {
+            if (response.data.message === 'comment saved successfully.') {
+              // Message published successfully
+              alert('Comment saved. wait to admin accepts your comment.');
+              data.fullname = null;
+              data.text = null;
+            }
+          }
+        })["catch"](function (error) {
+          alert('an error was encountered');
+        });
+      }
+    }
   }
 });
 
@@ -10712,7 +10741,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.author img[data-v-b64e390a] {\n    max-width: 100px;\n    border-radius: 150px;\n}\n.article_details[data-v-b64e390a] {\n    max-width: 750px;\n    margin: 60px auto;\n}\n.author_info[data-v-b64e390a] {\n    display: inline-block;\n    margin: 10px 5px;\n    vertical-align: top;\n}\n.author_fullname[data-v-b64e390a] {\n    font-size: 1.2em;\n    font-weight: 700;\n    margin-left: 0.5rem;\n}\n.follow_btn[data-v-b64e390a]{\n    align-items: center;\n    background-color: #4b4b4b;\n    color: #fff;\n    min-width: 7rem;\n    cursor: pointer;\n    position: relative;\n    text-align: right;\n\n    font-size: .75rem;\n    padding: 0.55rem 1.5rem;\n    border-radius: 99rem!important;\n    vertical-align: middle;\n}\n.author_description[data-v-b64e390a]{\n    opacity: 0.7;\n    margin-left: 10px;\n    line-height: 35px;\n    font-size: 0.85rem;\n}\n.article_publish_date[data-v-b64e390a]{\n    margin-left: 10px;\n    font-size: 0.75rem;\n    line-height: 20px;\n    font-weight: bold;\n}\n.article_title[data-v-b64e390a]{\n    font-size: 30px;\n    font-weight: bold;\n    margin-top: 35px;\n    line-height: 60px;\n}\n.article_main_box[data-v-b64e390a]{\n    line-height: 35px;\n    font-size: 18px;\n    margin-top: 15px;\n}\n.article_tags[data-v-b64e390a]{\n    margin-top: 50px;\n}\n.tag[data-v-b64e390a] {\n    text-decoration: none;\n    background: #eee;\n    color: #666;\n    padding: 7px 20px;\n    margin: 8px;\n    border-radius: 5px;\n}\n.comments[data-v-b64e390a] {\n    margin: 30px auto;\n    max-width: 750px;\n}\n.comments_title[data-v-b64e390a]{\n    color: #6e6e6e;\n    font-size: .8rem;\n    font-weight: 700;\n    margin-bottom: 1rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.author img[data-v-b64e390a] {\n    max-width: 100px;\n    border-radius: 150px;\n}\n.article_details[data-v-b64e390a] {\n    max-width: 750px;\n    margin: 60px auto;\n}\n.author_info[data-v-b64e390a] {\n    display: inline-block;\n    margin: 10px 5px;\n    vertical-align: top;\n}\n.author_fullname[data-v-b64e390a] {\n    font-size: 1.2em;\n    font-weight: 700;\n    margin-left: 0.5rem;\n}\n.follow_btn[data-v-b64e390a]{\n    align-items: center;\n    background-color: #4b4b4b;\n    color: #fff;\n    min-width: 7rem;\n    cursor: pointer;\n    position: relative;\n    text-align: right;\n\n    font-size: .75rem;\n    padding: 0.55rem 1.5rem;\n    border-radius: 99rem!important;\n    vertical-align: middle;\n}\n.author_description[data-v-b64e390a]{\n    opacity: 0.7;\n    margin-left: 10px;\n    line-height: 35px;\n    font-size: 0.85rem;\n}\n.article_publish_date[data-v-b64e390a]{\n    margin-left: 10px;\n    font-size: 0.75rem;\n    line-height: 20px;\n    font-weight: bold;\n}\n.article_title[data-v-b64e390a]{\n    font-size: 30px;\n    font-weight: bold;\n    margin-top: 35px;\n    line-height: 60px;\n}\n.article_main_box[data-v-b64e390a]{\n    line-height: 35px;\n    font-size: 18px;\n    margin-top: 15px;\n}\n.article_tags[data-v-b64e390a]{\n    margin-top: 50px;\n}\n.tag[data-v-b64e390a] {\n    text-decoration: none;\n    background: #eee;\n    color: #666;\n    padding: 7px 20px;\n    margin: 8px;\n    border-radius: 5px;\n}\n.comments[data-v-b64e390a] {\n    margin: 30px auto;\n    max-width: 750px;\n}\n.comments_title[data-v-b64e390a]{\n    color: #6e6e6e;\n    font-size: .8rem;\n    font-weight: 700;\n    margin-bottom: 1rem;\n}\n@media only screen and (max-width: 900px){\n.article_details[data-v-b64e390a] {\n        max-width: 95%;\n}\n.author[data-v-b64e390a] {\n         width: -webkit-max-content;\n         width: -moz-max-content;\n         width: max-content;\n         margin: 0 auto;\n}\n}\n@media only screen and (max-width: 600px){\n.author[data-v-b64e390a] {\n        display: none;\n}\n.article_title[data-v-b64e390a] {\n        font-size: 20px;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10736,7 +10765,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.comment[data-v-1d15af38]{\n    background-color: #f5f5f5;\n    padding: 17px;\n    margin-bottom: 10px;\n}\n.comment_author_photo[data-v-1d15af38]{\n    max-width: 35px;\n    display: inline-block;\n    border-radius: 30px;\n    overflow: hidden;\n}\n.comment_author_details[data-v-1d15af38]{\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 10px;\n}\n.comment_owner_fullname[data-v-1d15af38]{\n    color: #107abe;\n    font-size: 14px;\n}\n.comment_date[data-v-1d15af38]{\n    font-size: 10px;\n}\n.comment_content[data-v-1d15af38] {\n    margin-top: 15px;\n}\n.reply_btn svg[data-v-1d15af38]{\n    float: right;\n    cursor: pointer;\n}\n.clearfix[data-v-1d15af38]::after{\n    content: '';\n    display: table;\n    clear: both;\n}\n.reply[data-v-1d15af38]{\n    margin-top: 15px;\n}\n.reply_title[data-v-1d15af38] {\n    font-size: 13px;\n    margin-bottom: 10px;\n}\n.num1_replies[data-v-1d15af38] {\n    width: 95%;\n    margin-left: auto;\n}\n.num2_replies[data-v-1d15af38] {\n    width: 93%;\n    margin-left: auto;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.data[data-v-1d15af38] {\n    margin-top: 20px;\n}\n.comment[data-v-1d15af38]{\n    background-color: #f5f5f5;\n    padding: 17px;\n    margin-bottom: 10px;\n}\n.comment_author_photo[data-v-1d15af38]{\n    max-width: 35px;\n    display: inline-block;\n    border-radius: 30px;\n    overflow: hidden;\n}\n.comment_author_details[data-v-1d15af38]{\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 10px;\n}\n.comment_owner_fullname[data-v-1d15af38]{\n    color: #107abe;\n    font-size: 14px;\n}\n.comment_date[data-v-1d15af38]{\n    font-size: 10px;\n}\n.comment_content[data-v-1d15af38] {\n    margin-top: 15px;\n}\n.reply_btn svg[data-v-1d15af38]{\n    float: right;\n    cursor: pointer;\n}\n.clearfix[data-v-1d15af38]::after{\n    content: '';\n    display: table;\n    clear: both;\n}\n.reply[data-v-1d15af38]{\n    margin-top: 15px;\n}\n.reply_title[data-v-1d15af38] {\n    font-size: 13px;\n    margin-bottom: 10px;\n}\n.num1_replies[data-v-1d15af38] {\n    width: 95%;\n    margin-left: auto;\n}\n.num2_replies[data-v-1d15af38] {\n    width: 93%;\n    margin-left: auto;\n}\n@media only screen and (max-width: 900px) {\n.comment_content[data-v-1d15af38] {\n        font-size: 17px;\n}\n}\n@media only screen and (max-width: 600px) {\n.comment_content[data-v-1d15af38] {\n        font-size: 17px;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10760,7 +10789,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.header_main[data-v-798ca618] {\n    padding: 25px 15px;\n}\n.logo_box img[data-v-798ca618] {\n    width: 100%;\n}\n.logo_box[data-v-798ca618] {\n    display: inline-block;\n    max-width: 150px;\n}\n.right_tools[data-v-798ca618]{\n    display: inline-block;\n    float: right;\n    color: #8e8e8e;\n}\n.right_tools div[data-v-798ca618] {\n    display: inline-block;\n    margin: 0 12px;\n    vertical-align: middle;\n}\n.right_tools div svg[data-v-798ca618] {\n    height: 100%;\n    padding: 18% 0;\n}\n.profile_image[data-v-798ca618]{\n    width: 40px;\n    overflow: hidden;\n    border-radius: 20px;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.header_main[data-v-798ca618] {\n    padding: 25px 15px;\n}\n.logo_box img[data-v-798ca618] {\n    width: 100%;\n}\n.logo_box[data-v-798ca618] {\n    display: inline-block;\n    max-width: 150px;\n}\n.right_tools[data-v-798ca618]{\n    display: inline-block;\n    float: right;\n    color: #8e8e8e;\n}\n.right_tools div[data-v-798ca618] {\n    display: inline-block;\n    margin: 0 12px;\n    vertical-align: middle;\n}\n.right_tools div svg[data-v-798ca618] {\n    height: 100%;\n    padding: 18% 0;\n}\n.profile_image[data-v-798ca618]{\n    width: 40px;\n    overflow: hidden;\n    border-radius: 20px;\n}\n@media only screen and (max-width: 600px){\n.search_icon[data-v-798ca618], .notification_icon[data-v-798ca618] {\n        display: none !important;\n}\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29285,7 +29314,11 @@ var render = function () {
             "span",
             [
               _c("comment", {
-                attrs: { info: comment, data: _vm.comments_data },
+                attrs: {
+                  info: comment,
+                  article_id: _vm.article.id,
+                  data: _vm.comments_data,
+                },
               }),
             ],
             1
@@ -29359,7 +29392,9 @@ var render = function () {
             _vm._v("Reply this comment"),
           ]),
           _vm._v(" "),
-          _c("new_comment", { attrs: { reply_to: _vm.info.id } }),
+          _c("new_comment", {
+            attrs: { reply_to: _vm.info.id, article: _vm.article_id },
+          }),
         ],
         1
       ),
@@ -29429,7 +29464,10 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("new_comment", {
-                                attrs: { reply_to: item.id },
+                                attrs: {
+                                  reply_to: item.id,
+                                  article: _vm.article_id,
+                                },
                               }),
                             ],
                             1
@@ -29702,11 +29740,32 @@ var render = function () {
       }),
       _vm._v(" "),
       _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.text,
+            expression: "text",
+          },
+        ],
         staticClass: "comment_textarea",
         attrs: { rows: "3", placeholder: "write your comment here ..." },
+        domProps: { value: _vm.text },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.text = $event.target.value
+          },
+        },
       }),
       _vm._v(" "),
-      _c("button", { staticClass: "submit_comment_btn" }, [_vm._v("Submit")]),
+      _c(
+        "button",
+        { staticClass: "submit_comment_btn", on: { click: _vm.submit } },
+        [_vm._v("Submit")]
+      ),
     ]),
   ])
 }

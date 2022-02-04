@@ -67,6 +67,10 @@ export default {
         overflow: hidden;
         border-radius: 20px;
     }
-
+    @media only screen and (max-width: 600px){
+        .search_icon, .notification_icon {
+            display: none !important;
+        }
+    }
 
 </style>

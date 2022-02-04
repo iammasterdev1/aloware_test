@@ -13,7 +13,7 @@
 
         <div class="reply" v-show="active_reply">
             <div class="reply_title">Reply this comment</div>
-            <new_comment :reply_to="info.id" />
+            <new_comment :reply_to="info.id" :article="article_id"/>
         </div>
 
         <div class="reply_btn clearfix" @click='replyToggle'>
@@ -34,7 +34,7 @@
                     {{ item.comment_text }}
                     <div class="reply" v-if="item.num !== 3">
                         <div class="reply_title">Reply this comment</div>
-                        <new_comment :reply_to="item.id" />
+                        <new_comment :reply_to="item.id" :article="article_id"/>
                     </div>
                 </span>
 
@@ -64,7 +64,7 @@
 <script>
 export default {
     name: "comment" ,
-    props: ['info' , 'data'] ,
+    props: ['article_id' , 'info' , 'data'] ,
     data(){
         return {
             replyable: true ,
@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+.data {
+    margin-top: 20px;
+}
 .comment{
     background-color: #f5f5f5;
     padding: 17px;
@@ -129,5 +132,16 @@ export default {
 .num2_replies {
     width: 93%;
     margin-left: auto;
+}
+
+@media only screen and (max-width: 900px) {
+    .comment_content {
+        font-size: 17px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .comment_content {
+        font-size: 17px;
+    }
 }
 </style>

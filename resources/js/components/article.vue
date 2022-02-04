@@ -43,7 +43,7 @@
 
             <new_comment />
             <span v-for="comment in comments">
-                <comment :info="comment" :data="comments_data" />
+                <comment :info="comment" :article_id="article.id" :data="comments_data" />
             </span>
         </section>
 
@@ -182,5 +182,25 @@ export default {
     font-size: .8rem;
     font-weight: 700;
     margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 900px){
+    .article_details {
+        max-width: 95%;
+    }
+    .author {
+         width: max-content;
+         margin: 0 auto;
+     }
+}
+@media only screen and (max-width: 600px){
+
+    .author {
+        display: none;
+    }
+    .article_title {
+        font-size: 20px;
+    }
+
 }
 </style>

@@ -33,12 +33,27 @@ class articleController extends Controller
          *
          */
         if(
-            $request->has('reply_to') &&
+            ($request->has('reply_to')) &&
             comments::find($request->get('reply_to'))->article_id != $request->get('article_id')
         ){
             // Entered comment doesn't belong to entered article
             $errors['reply_to'][] = 'entered comment for reply doesn\'t belong to entered article.';
+
+            /**
+             *
+             * Check the layer of comment
+             *
+             */
+            if(
+                comments::find($request->get('reply_to'))->reply_to !== null
+            ){
+                if(comments::find(comments::find($request->get('reply_to'))->reply_to !== null)){
+                    $errors['reply_to'][] = 'you can not reply this comment';
+                }
+            }
         }
+
+
 
         /**
          *
